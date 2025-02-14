@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hehee</title>
+     <style>
+      * {
+  box-sizing: border-box;
+}
+
+body { 
+  margin: 0;
+  display: flex;
+  min-height: 100dvh;
+  perspective: 1000px;
+  font: 1em/1.4 "Poppins", sans-serif;
+  overflow: hidden;
+  color: hsl(180, 78%, 32%);
+  background-image: radial-gradient(
+      circle farthest-corner at 50% 50%,
+      hsl(187 20% 88%) 30%,
+      hsl(149 20% 94%) 100%
+  );
+}
+
+.book {
+  position: relative;
+  display: flex;
+  margin: auto;
+  width: 42cqmin; /* Increased width */
+  pointer-events: none;
+  transform-style: preserve-3d;
+  transition: translate 1s;
+  translate: calc(min(var(--c), 1) * 50%) 0%;
+  rotate: 1 0 0 30deg;
+}
+
+.page {
+  --thickness: 4;
+  flex: none;
+  display: flex;
+  width: 100%;
+  font-size: 2.2cqmin; /* Slightly increased font size */
+  pointer-events: all;
+  user-select: none;
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  transition: transform 1s,
+      rotate 1s ease-in calc((min(var(--i), var(--c)) - max(var(--i), var(--c))) * 50ms);
+  translate: calc(var(--i) * -100%) 0px 0px;
+  transform: translateZ(calc((var(--c) - var(--i) - 0.5) * calc(var(--thickness) * 0.23cqmin)));
+  rotate: 0 1 0 calc(clamp(0, var(--c) - var(--i), 1) * -180deg);
+}
+
+.front,
+.back {
+  position: relative;
+  flex: none;
+  width: 100%;
+  backface-visibility: hidden;
+  overflow: hidden;
+  background-color: #ffffff;
+  translate: 0px;
+}
+
+.back {
+  translate: -100% 0;
+  rotate: 0 1 0 180deg;
+}
+
+.book {
+  counter-reset: page -1;
+}
+
+.book a {
+  color: inherit;
+}
+
+.page {
+  box-shadow: 0em 0.5em 1em -0.2em #00000020;
+}
+
+.front,
+.back {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  padding: 2em;
+  border: 1px solid #0002;
+}
+
+.front:has(img),
+.back:has(img) {
+  padding: 0;
+}
+
+.front img,
+.back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.front::after,
+.back::after {
+  position: absolute;
+  bottom: 1em;
+  counter-increment: page;
+  content: counter(page) ".";
+  font-size: 0.8em;
+}
+
+.cover::after {
+  content: "";
+}
+
+.front::after {
+  right: 1em;
+}
+
+.front {
+  background: linear-gradient(to left,#f1a6bf, #f1a6bf 100%);
+  border-radius: 0.1em 0.5em 0.5em 0.1em;
+}
+
+.back::after {
+  left: 1em;
+}
+
+.back {
+  background-image: linear-gradient(to right, #f7f7f7 80%, #eee 100%);
+  border-radius: 0.5em 0.1em 0.1em 0.5em;
+}
+
+.cover {
+  background: radial-gradient(
+          circle farthest-corner at 80% 20%,
+          hsl(150 80% 20% / 0.3) 0%,
+          hsl(170 60% 10% / 0.1) 100%
+      ),
+      hsl(347, 84%, 32%) url("./cover.jpg") 50% / cover;
+  color: hsl(0, 100%, 30%); /* Dark red text color for cover page */
+}
+
+h1,
+h2,
+h3 {
+  margin-bottom: 1px;
+  color: hsl(0, 81%, 25%); /* Dark red heading color */
+}
+
+p {
+  margin-top: 1px;
+  margin-bottom: 8px;
+  line-height: 1.4;
+  color: hsl(0, 0%, 0%); /* Dark red text color for paragraphs */
+}
+
+.front,
+.back {
+  padding: 1.5em;
+  color: hsl(0, 100%, 30%); /* Dark red text color for front and back pages */
+}
+
+.book {
+  width: 40cqmin; /* Slightly increased width */
+}
+
+.page {
+  font-size: 2cqmin; /* Slightly increased font size */
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+.front,
+.back {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1.5em;
+}
+
+h2 {
+  margin-bottom: 5px;
+}
+
+p {
+  margin-top: 5px;
+  line-height: 1.4;
+}
+
+
+body {
+  margin: 0;
+  display: flex;
+  min-height: 100dvh;
+  perspective: 1000px;
+  font: 1em/1.4 "Poppins", sans-serif;
+  overflow: hidden;
+  color: hsl(180 68% 5%);
+  background: linear-gradient(to right, #ff7eb9, #ff65a3, #ff165d);
+  background-size: 400% 400%;
+  animation: gradientAnimation 10s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Emoji Animation */
+.emoji {
+  position: absolute;
+  font-size: 3rem;
+  opacity: 0;
+  
+}
+
+@keyframes floatEmojis {
+  0% {
+    transform: translateY(100px);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-100px) rotate(20deg);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(100px);
+    opacity: 1;
+  }
+}
+
+/* Add random timing for each emoji */
+.
+}
+
+
+     </style>
+  </head>
+  <body>
+    <div class="book">
+      <div class="page">
+        <div class="front cover">
+          <h1
+            style="
+              color: rgb(0, 0, 0);
+              text-shadow: 5px 2px 5px rgb(255, 255, 255);
+            "
+          >
+            A Message for You🤍
+          </h1>
+
+          <p
+            style="
+              color: rgb(255, 255, 255);
+              text-shadow: 5px 2px 5px rgb(0, 0, 0);
+            "
+          >
+            2025.<br />specially written for my special person.
+          </p>
+        </div>
+        <div class="back">
+          <h2>A tiny gift for You🌹❤ ❤️✨</h2>
+
+       <p> I have tried to put my love for you into words a thousand times,
+        but every word, every sentence feels too small, too fragile, too ordinary.
+        Because you—you are the poetry my soul has been reciting forever,
+        even before my lips knew how to whisper your name.
+        
+        I always say that i love your eyes,
+        Do you know why? 
+        cause even when your words were confused , even when you heart was confused 
+        those eyes they were never confused about me.
+        They hold galaxies I could lose myself in,
+        a warmth that melts the coldest corners of my heart.
+        When the world is too much, too loud, too unkind,
+        your voice is the only thing that brings me home.
+        
+        There’s a quiet magic in the way you exist,
+        how you make love feel like the safest place in the world
+        
+        With just one smile, you color my universe.
+        
+        If loving you is a language, then i am the most fluent.
+        If love is a lifetime, then I pray to spend every breath, every heartbeat,
+        just loving you.💖</p>
+
+        </div>
+      </div>
+      <!--2nd page-->
+      <div class="page">
+        <div class="front">
+          <h2>YOU ARE THE BEST STRANGER WHO CAME IN MY LIFE ❤️✨</h2>
+          <p>
+            My eyes refused to watch you leave, but everything around me felt helpless, acceptance filled my eyes and dried my heart , even my tears refused to fall, I wish they did so I wouldn't have to see u leave. 
+U r my favorite.
+            If my eyes reflect you, it is because they have learned to see only you.)
+
+I have traced your name in my mind a thousand times,
+felt it linger on my lips like a prayer, like a promise.
+The world may call love a simple thing,
+but the way I love you is not simple.
+It is vast, endless, unshaken by time, untouched by doubt.. 💕
+
+I have loved you more than you can think off, loved you for so long it became a habit ,
+if loving you meant that i loose myself then i would happily love you till my last breath.
+Maybe god isnt letting me foregt you cause you could use some extra prayer in you life and god knows am the only one who prayes for you.
+
+          </p>
+        </div>
+        <div class="back">
+          <img src="c:\Users\Dell\Downloads\DALL·E 2025-02-14 02.43.50 - A cute and artistic representation of love, featuring a heart-shaped balloon floating in a dreamy pastel sky. The heart has a soft glow and is surroun.webp" alt="Img 1" />
+        </div>
+      </div>
+      <!--3rd page-->
+      <div class="page">
+        <div class="front">
+          <h2>The Magic of You ✨💖</h2>
+          <p>
+            you have done something to me , black magic ? hahha joking , but magic for sure , 
+            I could spend eternity listening to the sound of your laughter,
+            watching the way your eyes soften when you look at me,
+            memorizing every little detail of you, every little habit, every little dream.
+            Because loving you is not just something I do—it is who I am.
+            It is the most natural thing in the world,
+            like breathing, like the sea meeting the shore, ✨💖
+          </p>
+        </div>
+        <div class="back">
+          <h2> MY STRENGTH💫✨</h2>
+          <p> you are both my strength and weakness, for you i would kill, for you i would die , i would give up on the most valuable things on earth for you.
+         
+            something about you is special, 
+            or more like everyhing about you is so sspecial.
+            nothing about you is ordinary , everything baout you makes me go mad, go crazy, standing next you i feel like i dont belong anywhere near you , you feel like soo forbidden.  🌟
+            my safest place, and the best person I’ve ever known.
+            You help me in ways you don’t even realize, No matter how hard things get, you can never give up—because you are the strongest, my strongest. I believe in you, I need you, and I’ll always stand by you. So stay strong, not just for yourself, but for me too.
+            With you, I feel safe, like nothing in this world can break me. You are not just strong—you are the strongest, the kind of man who stands tall even in the hardest storms. No matter how tough life gets, you can never fall because I need you, I believe in you, and I see the fire in you that never dies.
+             
+STAY STRONG, BECAUSE THE WORLD MAY TRY, BUT IT CAN NEVER SHAKE A MAN LIKE YOU.
+
+        </p>
+        </div>
+      </div>
+      <!--4th page-->
+      <div class="page">
+        <div class="front">
+          <h2>The Best Part of My Day🤞💖</h2>
+          <p>
+            There is nothing I wouldn’t give, nothing I wouldn’t do,
+just to keep you smiling, just to see you happy.
+I love you with a love that does not waver, does not fade.
+A love that is written in the stars, whispered by the wind,
+and carved into the deepest corners of my heart.
+
+You are my forever, my always.
+And in every life, in every world, in every story yet to be written—
+it will always be you 💕
+          </p>
+        </div>
+        <div class="back">
+            <h1>A Wish from the Heart 💫💖</h1>
+            <p>
+             i hope you find everything that you once lost, you get evrything you love , alll your dreams , let all goodness in this world find its way to you and evrything that exists to hurt you find its way to me 
+             let me be the last worst thing ever happened in your life , 
+             with me or without me i wanna see you be everything that you ever wanted to be.
+             i will be watching you from somewhere afar , even tho far just as close your shadow is .✨
+            </p>
+        </div>
+      </div>
+      <!--5th page-->
+      <div class="page">
+        <div class="front">
+            <h1>Always Here for You 💖✨</h1>
+            <p>I AM HELL DAMNN SURE THAT 
+              I have LOVED you in a thousand ways, in a thousand lifetimes before this one.
+  Perhaps in another time, I was the wind that brushed past your skin,
+  the rain that kissed your face,
+  the whisper of a song you heard in a dream but never remembered.
+  But in this life, I am here, with hands aching to hold you,
+  a heart overflowing with love too vast for words 💕
+  
+  I WILL ALWAYS BE HERE FOR YOU , EVEN IF YOU WANT ME TO LEAVE I WONT, I AINT GONNA GIVE UP ON MY SWEET BOY NEITHER IN THIS LIFE NOR IN THE NEXT ONES.
+  How could peopel hurt my boy, my life, my world, they dont know how much loved you are, once they know they the whole world would be jealous of you . no amount of money could ever buy the love i have for you.
+  anything for my KING.
+  I don’t need forever.
+  I don’t need promises or a life beside you.
+  I just need one second—one moment—where I can see you,
+  breathe you in, carve the sight of you into my soul
+  so that even in death, I can carry you with me.
+            </p>
+        </div>
+        <div class="back">
+            <h2>The Beauty of You ✨💖</h2>
+            <p>No mirror in the world could ever reflect your beauty cause it would break into pieces with no time seeing how graceful you are.
+  
+              Every time I see you, my heart breaks and heals at the same time.
+  Because loving you is the most beautiful thing I have ever felt,
+  and yet, it is also the most painful.
+  To want something so deeply, so desperately,
+  and know that I can never truly call it mine—
+  it’s a kind of ache that never fades.
+  
+  Somewhere, in another life, maybe we don’t have to hide.
+  Maybe my hands fit into yours without hesitation.
+  Maybe I get to hold you without fear,
+  love you without limits, say your name without trembling. 💖✨
+            </p>
+        </div>
+      </div>
+      <!--6th page-->
+      <div class="page">
+        <div class="front">
+            <h2> IF LOVING YOU IS A SIN THEN I BELONG TO THE DEPTHS OF HELL. ✨💖</h2>
+            <p>
+              How do I erase something that has been written
+              into my very soul?
+              
+              The world may not understand us.
+              They may call it a mistake, a sin, an impossibility.
+              But I know the truth—this is the purest thing I have ever known.
+              Because when I look into your eyes, I don’t see a mistake.
+              I see home. I see every dream I was too afraid to dream.
+              I see the only person who has ever made me feel truly alive
+              I don’t know what cruel twist of fate brought you into my life only to make you someone I could never truly have. But if this is all we get—stolen moments, silent glances, unspoken words—I will take it. I will take whatever piece of you the world allows me to have, even if it’s never enough.
+  What will we be called when the world gtes to know us ? idk a match made in heaven? or the most forbidden love in history ever?
+  shouldn’t love you like this.
+  I shouldn’t want you the way I do.
+  But tell me—how do I stop?
+  How do I turn away from the one my eyes cried for.
+  
+  
+  
+  
+              💕✨
+              
+            </p>
+        </div>
+        <div class="back">
+            <p> if you wanna leave me then teach me to live without you, without dying every second.
+            What might have love be made up of? sacrifice? pain? blood? what is it ? what could it be that it hurts and heals at the same time?
+            why are you not mine? have you ever doubted my love? That would definetly be a sin? loving you is all i know to do? 
+            will you get tired of waiting for me? tired of this distance ? i would never , would you? plss dont cause i dont know what to do if u do , i am helpless
+            it takes both to be in a relation but only takes one to end it. You are so deeply woven into me that I can’t even see myself anymore.
+            even if it leaves me breathless and broken—
+            I would still choose you.
+            A thousand times over, I would still choose you.
+            If the choices were between dying losing every last drop of blood in me,
+            or getting to look at you for just a second,
+            I wouldn’t think twice.
+        
+            I would always choose you.
+            
+            Because what is a life without you in it?
+            What is a heartbeat if it doesn’t beat for you?
+            What is survival if I have to live in a world where I can’t see you,
+            can’t feel you, can’t love you—even from a distance?
+            
+            നീ ഇല്ലെങ്കിൽ, ഞാൻ ആരും അല്ല
+        
+            What comes after goodbyes? I HOPE ITS AGAIN YOU.
+        </p>
+        </div>
+      </div>
+    
+        
+
+      <!--7th page-->
+      <div class="page">
+        <div class="front">
+            <h2>Grateful for You🌹❤</h2>
+            <p>
+              I don’t know what I did to deserve you in my life, even in this way, even if we are never meant to be more than this. But I know one thing for sure—I am grateful for you. Grateful that in a world of billions, our paths crossed, that for a brief moment in time, I get to love you, even if it’s from afar.
+              no matter where life takes us, no matter how far we go,
+  just know this—my heart carries you with it, always.
+  And if this is all we ever get, I will still spend my life being grateful
+  that I got to love someone as beautiful as you,
+  even if the world never lets us belong to each other.
+  Thank you. Thank you for this love that fills my soul
+  
+  Because no matter what happens, one truth will never change—
+  I will love you for a lifetime, and beyond.💕
+            </p>
+        </div>
+        <div class="back">
+          <h2>Will You Be Mine? ❤️✨</h2>
+          <p>I have spent so long pretending that this feeling doesn’t consume me,
+            convincing myself that I can live without you,
+            that I can settle for stolen moments and silent dreams.
+            But the truth is—I can’t.
+            I don’t want to live in a world where I have to love you in the shadows,
+            where I have to swallow your name like a secret
+            when all I want is to call you mine.
+            I know the world is against us.
+I know there are rules, expectations, obstacles.
+I don’t need the world’s approval.
+I don’t need promises of forever.
+I just need you.
+I need your hand in mine, your voice in my silence,
+your love in the spaces between my heartbeats.
+
+Let me fall, let me bleed, let me lose everything—
+because in that single moment, where my eyes find yours,
+I will have had everything I ever needed.
+
+And that is enough.
+
+So tell me—if I ask you, if I give you everything,
+if I love you with a love that defies reason and time—
+Will you be mine?
+ 💖💕 </p>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="front">
+          <img src="c:\Users\Dell\Downloads\DALL·E 2025-02-14 02.47.02 - A romantic and artistic representation of forbidden love. A glowing heart is split in two, separated by a soft, ethereal barrier, symbolizing an impos.webp" alt="Img 1" />
+        </div>
+        <div class="back cover">
+          <h3></h3>
+          <p>
+            By lovebug<br /><a
+              href=""
+              target="_blank"
+              rel="nofollow"></a>
+
+            <br />
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="emoji">❤️‍🔥</div>
+<div class="emoji">🫶🏻</div>
+<div class="emoji">❤️</div>
+<div class="emoji">😘</div>
+<div class="emoji">👨‍❤️‍💋‍👨</div>
+<div class="emoji">💓</div>
+<div class="emoji">❣️</div>
+<div class="emoji">💘</div>
+<div class="emoji">💖</div>
+<div class="emoji">💙</div>
+<div class="emoji">💚</div>
+<div class="emoji">🥰</div>
+<div class="emoji">💗</div>
+
+<script>
+  const flipBook = (elBook) => {
+    elBook.style.setProperty("--c", 0); // Set current page
+    elBook.querySelectorAll(".page").forEach((page, idx) => {
+      page.style.setProperty("--i", idx);
+      page.addEventListener("click", (evt) => {
+        if (evt.target.closest("a")) return;
+        const curr = evt.target.closest(".back") ? idx : idx + 1;
+        elBook.style.setProperty("--c", curr);
+      });
+    });
+  };
+  
+  document.querySelectorAll(".book").forEach(flipBook);
+  
+</script>
+ 
+  </body>
+</html>
